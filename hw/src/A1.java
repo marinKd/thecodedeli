@@ -90,7 +90,7 @@ class A1{
 		//sets up linkedlist
 		TopStreamingArtists viplist = new TopStreamingArtists();
 		
-		//loops through data to count and remove duplicate names
+		//loops through sorted array to count and remove duplicate names
 		//prints artist name and number of times it appeared in data
 		for(int i = 0; i < artists.length; i++){
 			dupcounter++;
