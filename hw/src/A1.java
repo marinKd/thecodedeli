@@ -16,10 +16,10 @@ import java.io.PrintWriter;
 //LinkedList class
 class TopStreamingArtists{
 	Artist head;
-	
+		
 	static class Artist{
 		String name;
-		Artist next;
+		Artist next;		
 		
 		Artist(String name){
 			this.name=name;
@@ -29,8 +29,7 @@ class TopStreamingArtists{
 	//to add node
 	public static TopStreamingArtists insert(TopStreamingArtists list, String name){
 		Artist newArtist = new Artist(name);
-		newArtist.next = null;
-		
+		newArtist.next = null;		
 		if(list.head == null){
 			list.head = newArtist;
 		}
@@ -49,8 +48,6 @@ class TopStreamingArtists{
 		System.out.println("List: ");
 		while(node != null){
 			output.println(node.name+" ");
-			//for terminal testing
-			//System.out.println(node.name+" ");
 			node = node.next;
 		}
 	}
@@ -58,31 +55,43 @@ class TopStreamingArtists{
 class A1{
 		
 	public static void main(String[] args) throws Exception {
+		
 		//to read csv.
 		BufferedReader stdin = new BufferedReader(new FileReader("global.csv"));
+		
 		//prepares output file
 		PrintStream output = new PrintStream(new File("output.txt"));
+		
 		//records is ArrayList of lines
 		//String[] is array of line contents
+		//nested array takes in artist names
 		ArrayList<String[]> records = new ArrayList<String[]>();
 		String[] record = new String[3];
 		while(stdin.readLine() != null){
 			record = stdin.readLine().split(",");
 			records.add(record);
 		}
+		
 		//artists is array of artist names
 		String[] artists = new String[records.size()];
 		for(int i = 0; i < records.size(); i++)
 		{
 			artists[i] = records.get(i)[2];
 		}
+		
 		//to sort array alphabetically
 		Arrays.sort(artists);
-		String str = artists[0];
-		//to count and remove duplicate names
+		
+		//variables needed to count and remove duplicate names
 		boolean found = false;
-		TopStreamingArtists viplist = new TopStreamingArtists();
 		int dupcounter=0;
+		String str = artists[0];
+		
+		//sets up linkedlist
+		TopStreamingArtists viplist = new TopStreamingArtists();
+		
+		//loops through data to count and remove duplicate names
+		//prints artist name and number of times it appeared in data
 		for(int i = 0; i < artists.length; i++){
 			dupcounter++;
 			if(str.equals(artists[i]) && !found){
@@ -90,8 +99,6 @@ class A1{
 			}
 			else if(!str.equals(artists[i])){
 				output.println(dupcounter+" "+str);
-				//for terminal testing
-				//System.out.println(dupcounter+" " + str);
 				str = artists[i];
 				viplist.insert(viplist, artists[i]);
 				found = false;
@@ -99,12 +106,13 @@ class A1{
 			}
 		}
 		
-		/*More convenient to print using arrays;
+		/*
+		More convenient to print using arrays;
 		Counting amount of artist appearences on the list proved easier using a counter
+
+		To print using linked list(no duplicate counter):
+		viplist.displayList(viplist, output);
 		*/
-		
-		//To print using linked list(no duplicate counter):
-		//viplist.displayList(viplist, output);
 	}
 }
 		
